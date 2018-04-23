@@ -104,7 +104,7 @@ void putpixel(int x,int y,int color){
 	memset((char *)buffer,color,(320 * 200));
 	int pos = y * 25 + x * 80;
 	memset(buffer, + (y *25 + 80) +x,160);
-	buffer[pos] = (uint16_t) color << 8
+	buffer[pos] = (uint16_t) color << 8;
 }
 
 void main(void) 
