@@ -114,7 +114,6 @@ void main(void)
  
 	/* Newline support is left as an exercise. */
 	writestring("test");
-	asm volatile("msg db 'Hello World', 13, 10, 0");
-        asm volatile("movl ax, 0x07c0");
-        asm volatile("movl si, msg");
+        asm volatile("movl %ax, 0x07c0");
+        asm volatile("movl %si, h");
 }
