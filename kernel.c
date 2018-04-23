@@ -114,7 +114,4 @@ void main(void)
  
 	/* Newline support is left as an exercise. */
 	writestring("test");
-	char h = 'h'
-        asm volatile("movl %ax, 0x07c0");
-        asm volatile("movl %si, "+h);
 }
