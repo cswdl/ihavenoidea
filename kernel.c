@@ -101,10 +101,10 @@ void writestring(const char* data)
 
 void putpixel(int x,int y,int color){
 	buffer = (unsigned char *) 0xB8000;
-	int pos = x+y;
-	buffer[pos] = color & 0xff;
-	buffer[pos+1] = (color>>8) & 0xff;
-	buffer[pos+2] = (color>>16) & 0xff;
+	unsigned where = x*3 + y*2400;
+	buffer[where] = color & 255;              // BLUE
+	buffer[where + 1] = (color >> 8) & 255;   // GREEN
+	buffer[where + 2] = (color >> 16) & 255;  // RED
 }
 
 void main(void) 
