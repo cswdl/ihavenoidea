@@ -102,11 +102,9 @@ void writestring(const char* data)
 void putpixel(int x,int y,int color){
 	buffer = (unsigned char *) 0xB8000;
 	memset((char *)buffer,color,(320 * 200));
-	int pos = y * 320 + x * 80;
-	memset(buffer, + (y *320 + 80) +x,160);
-	buffer[pos] = color & 255;
-	buffer[pos] = (color >> 8) & 255;
-	buffer[pos + 2] = (color >> 16) & 255;
+	int pos = y * 25 + x * 80;
+	memset(buffer, + (y *25 + 80) +x,160);
+	buffer[pos] = (uint16_t) color << 8
 }
 
 void main(void) 
@@ -116,4 +114,5 @@ void main(void)
  
 	/* Newline support is left as an exercise. */
 	writestring("test");
+	putpixel(10, 10, 10);
 }
