@@ -1,6 +1,5 @@
 #include <stdbool.h>
 #include <stddef.h>
-#include <stdio.h>
 #include <stdint.h>
 enum vga_color {
 	VGA_COLOR_BLACK = 0,
@@ -111,6 +110,5 @@ void main(void)
  
 	/* Newline support is left as an exercise. */
 	writestring("test1\n");
-  printf("test2\n");
-  putpixel(10, 10, 13);
+	putpixel(10, 10, 13);
 }
