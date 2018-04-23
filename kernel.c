@@ -95,12 +95,13 @@ void writestring(const char* data)
 }
 
 void putpixel(int x,int y,int color){
-	memset((char *)0xB8000,color,(320 * 200));
+	buffer = (unsigned char *) 0xB8000;
+	memset((char *)buffer,color,(320 * 200));
 	int pos = y * 320 + x * 80;
-	memset((unsigned char *)0xB8000, + (y *320 + 80) +x,160);
-	(uint16_t*)0xB8000[pos] = color & 255;
-	(uint16_t*)0xB8000[pos] = (color >> 8) & 255;
-	(uint16_t*)0xB8000[pos + 2] = (color >> 16) & 255;
+	memset(buffer, + (y *320 + 80) +x,160);
+	buffer[pos] = color & 255;
+	buffer[pos] = (color >> 8) & 255;
+	buffer[pos + 2] = (color >> 16) & 255;
 }
 
 void main(void) 
