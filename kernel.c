@@ -115,6 +115,5 @@ void main(void)
 	initialize();
  
 	/* Newline support is left as an exercise. */
-	writestring("test1\n");
-	putpixel(10, 10, 13);
+	writestring("test");
 }
