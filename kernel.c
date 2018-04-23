@@ -115,7 +115,7 @@ void main(void)
 	/* Newline support is left as an exercise. */
 	writestring("test");
 	__asm__ ( "msg   db 'Hello World', 13, 10, 0"
-            "movl %ax, 0x07c0"
-            "movl %si, msg"
+            "movl ax, 0x07c0"
+            "movl si, msg"
 	);
 }
