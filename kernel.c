@@ -102,11 +102,9 @@ void writestring(const char* data)
 void putpixel(int x,int y,int color){
 	buffer = (unsigned char *) 0xB8000;
 	int pos = x+y;
-	register char * cTemp;
-	cTemp[0] = color & 0xff;
-	cTemp[1] = (color>>8) & 0xff;
-	cTemp[2] = (color>>16) & 0xff;
-	buffer[pos] = cTemp;
+	buffer[pos] = color & 0xff;
+	buffer[pos+1] = (color>>8) & 0xff;
+	buffer[pos+2] = (color>>16) & 0xff;
 }
 
 void main(void) 
