@@ -111,7 +111,6 @@ void fillrect(unsigned short c, unsigned short w, unsigned short h) {
         for (j = 0; j < h; j++) {
             putpixel(64 + j, 64 + i, c);
         }
-        (unsigned char*)0xB8000+=3200;
     }
 }
 void main(void) 
