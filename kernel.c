@@ -38,8 +38,8 @@ size_t strlen(const char* str)
 	return len;
 }
  
-static const size_t VGA_WIDTH = 800;
-static const size_t VGA_HEIGHT = 600;
+static const size_t VGA_WIDTH = 80;
+static const size_t VGA_HEIGHT = 60;
  
 size_t row;
 size_t column;
