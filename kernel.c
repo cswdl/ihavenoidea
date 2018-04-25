@@ -99,19 +99,15 @@ void writestring(const char* data)
 	write(data, strlen(data));
 }
 
-void putpixel(int x,int y,int color){
-	buffer = (unsigned char *) 0xB8000;
-	unsigned where = x*3 + y*2400;
-	buffer[where] = color & 255;              // BLUE
-	buffer[where + 1] = (color >> 8) & 255;   // GREEN
-	buffer[where + 2] = (color >> 16) & 255;  // RED
+void putpixel(unsigned short x,unsigned short y,unsigned long p)
+{
+    *((unsigned short*)0xB8000+y*80+x+1)=(unsigned char)p&0xFF;
 }
+
 
 void main(void) 
 {
-	/* Initialize terminal interface */
 	initialize();
- 
-	/* Newline support is left as an exercise. */
 	writestring("test");
+	putpixel(10,10,10); //blyat
 }
