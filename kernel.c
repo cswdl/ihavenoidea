@@ -99,24 +99,18 @@ void writestring(const char* data)
 	write(data, strlen(data));
 }
 
-void putpixel(unsigned short x,unsigned short y,unsigned long p)
+void putpixel(int x, int y, int color)
 {
-    *((unsigned short*)0xB8000+y*80+x+1)=(unsigned char)p&0xFF;
+	unsigned char* screen = (unsigned char*)0xB8000;
+	unsigned where = x*4 + y*3200;
+	screen[where] = color & 255;              // BLUE
+	screen[where + 1] = (color >> 8) & 255;   // GREEN
+	screen[where + 2] = (color >> 16) & 255;  // RED
 }
 
-void fillrect(unsigned short c, unsigned short w, unsigned short h) {
-    int i, j;
- 
-    for (i = 0; i < w; i++) {
-        for (j = 0; j < h; j++) {
-            putpixel(64 + j, 64 + i, c);
-        }
-    }
-}
 void main(void) 
 {
 	initialize();
 	writestring("test");
 	putpixel(10,10,10); //blyat
-	fillrect(10, 20, 30);
 }
