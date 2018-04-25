@@ -104,10 +104,20 @@ void putpixel(unsigned short x,unsigned short y,unsigned long p)
     *((unsigned short*)0xB8000+y*80+x+1)=(unsigned char)p&0xFF;
 }
 
-
+void fillrect(unsigned short c, unsigned short w, unsigned short h) {
+    int i, j;
+ 
+    for (i = 0; i < w; i++) {
+        for (j = 0; j < h; j++) {
+            putpixel(64 + j, 64 + i, c);
+        }
+        (unsigned char*)0xB8000+=3200;
+    }
+}
 void main(void) 
 {
 	initialize();
 	writestring("test");
 	putpixel(10,10,10); //blyat
+	fillrect(10, 20, 30);
 }
