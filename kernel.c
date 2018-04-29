@@ -99,8 +99,14 @@ void writestring(const char* data)
 	write(data, strlen(data));
 }
 
-extern int switchTo13h();
-
+void switchTo13h(){
+	asm volatile(
+	"mov $0, %ah\n\t"
+	"mov $0x13, %al\n\t"
+	"int $0x10\n\t"
+	"ret"
+	);
+}
 void setpixel(int x, int y, unsigned char color) {
 	unsigned char* VGA = (unsigned char*) 0xA0000;
 	int offset;
