@@ -120,5 +120,6 @@ void main(void)
 {
 	initialize();
 	writestring("test");
+	setVgaGraphicsMode();
 	putpixel(10,10,(unsigned char) 10); //blyat
 }
