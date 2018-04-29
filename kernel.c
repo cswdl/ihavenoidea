@@ -99,12 +99,8 @@ void writestring(const char* data)
 	write(data, strlen(data));
 }
 
-void setVgaGraphicsMode() {
-	asm("mov ah, 0");
-	asm("mov al, 0x13");
-	asm("int 0x10");
-	asm("ret");
-}
+extern int switchTo13h();
+
 void setpixel(int x, int y, unsigned char color) {
 	unsigned char* VGA = (unsigned char*) 0xA0000;
 	int offset;
@@ -120,6 +116,6 @@ void main(void)
 {
 	initialize();
 	writestring("test");
-	setVgaGraphicsMode();
+	switchTo13h();
 	setpixel(10,10,(unsigned char) 10); //blyat
 }
