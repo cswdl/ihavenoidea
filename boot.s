@@ -21,11 +21,6 @@ stack_top:
 .section .text
 .global _start
 .type _start, @function
-switchTo13h:
-	mov $0, %ah
-	mov $0x13, %al
-	int $0x10
-	ret
 _start:
 	mov $stack_top, %esp
 	cli
