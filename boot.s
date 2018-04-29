@@ -24,7 +24,7 @@ stack_top:
 switchTo13h:
 	mov $0, %ah
 	mov $0x13, %al
-	int 0x10
+	int $0x10
 	ret
 _start:
 	mov $stack_top, %esp
