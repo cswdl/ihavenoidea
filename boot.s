@@ -22,8 +22,8 @@ stack_top:
 .global _start
 .type _start, @function
 switchTo13h:
-	mov ah, 0
-	mov al, 0x13
+	mov 0, $ah
+	mov 0x13, $al
 	int 0x10
 	ret
 _start:
