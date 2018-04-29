@@ -100,8 +100,8 @@ void writestring(const char* data)
 }
 
 void setVgaGraphicsMode() {
-	__asm__ ("mov ah, 0"
-         "mov al, 0x13"
+	__asm__ ("movl ah, 0"
+         "movl al, 0x13"
          "int 0x10"
          "ret");
 }
@@ -121,5 +121,5 @@ void main(void)
 	initialize();
 	writestring("test");
 	setVgaGraphicsMode();
-	putpixel(10,10,(unsigned char) 10); //blyat
+	setpixel(10,10,(unsigned char) 10); //blyat
 }
