@@ -100,20 +100,20 @@ void writestring(const char* data)
 }
 
 void setVgaGraphicsMode() {
-	__asm__ ("movl ah, 0"
-         "movl al, 0x13"
-         "int 0x10"
-         "ret");
+	asm("mov ah, 0");
+	asm("mov al, 0x13");
+	asm("int 0x10");
+	asm("ret");
 }
 void setpixel(int x, int y, unsigned char color) {
-unsigned char* VGA = (unsigned char*) 0xA0000;
-  int offset;
-  if(0 <= x && x < 320) {
-    if(0 <= y && y < 200) {
-      offset = 320*y + x;
-      VGA[offset] = color;
-    }
-  }
+	unsigned char* VGA = (unsigned char*) 0xA0000;
+	int offset;
+	if(0 <= x && x < 320) {
+		if(0 <= y && y < 200) {
+			offset = 320*y + x;
+			VGA[offset] = color;
+   		}
+  	}
 }
 
 void main(void) 
