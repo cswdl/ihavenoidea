@@ -44,6 +44,11 @@ doesn't make sense to return from this function as the bootloader is gone.
 .section .text
 .global _start
 .type _start, @function
+switchTo13h:
+	mov ah, 0
+	mov al, 0x13
+	int 0x10
+	ret
 _start:
 	/*
 	The bootloader has loaded us into 32-bit protected mode on a x86
