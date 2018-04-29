@@ -120,8 +120,6 @@ void setpixel(int x, int y, unsigned char color) {
 
 void main(void) 
 {
-	initialize();
-	writestring("test");
 	switchTo13h();
 	setpixel(10,10,(unsigned char) 10); //blyat
 }
