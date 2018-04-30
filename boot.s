@@ -23,10 +23,10 @@ stack_top:
 .type _start, @function
 _start:
 	xor %ax,%ax
-	mov $ds, %ax
-	mov $es, %ax
-	mov $fs, %ax
-	mov $gs, %ax
+	mov %ds, %ax
+	mov %es, %ax
+	mov %fs, %ax
+	mov %gs, %ax
 
 
 		/*
