@@ -1,12 +1,12 @@
 .global int13
 
 int13:
+        cli
         movl    %cr0,%eax
-        orl     $1,%eax
+        andb    $not 1,%al
         movl    %eax,%cr0
-        jmp     cs:setgraphics
-setgraphics:
+        sti
         movb    $0,%ah
         movb    $0x13,%al
         int     $0x10
-        ret
+        re
