@@ -9,4 +9,4 @@ int13:
         movb    $0,%ah
         movb    $0x13,%al
         int     $0x10
-        re
+        ret
