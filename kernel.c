@@ -50,58 +50,31 @@ size_t strlen(const char* str)
   		len++;
   	return len;
   }
-char hex_ret(int X)
+static char hex [] = { '0', '1', '2', '3', '4', '5', '6', '7',
+                        '8', '9' ,'A', 'B', 'C', 'D', 'E', 'F' };
+ 
+//The function that performs the conversion. Accepts a buffer with "enough space" TM 
+//and populates it with a string of hexadecimal digits.Returns the length in digits
+int uintToHexStr(unsigned int num,char* buff)
 {
-    int quotient;
-    int rem;
-    char i[16]; void *p=i;
-    char r[]={'A','B','C','D','E','F','/0'};
-
-        if (X>=16)
-        {
-            quotient=X/16;
-            rem=X%16;
-            if (quotient>=16)
-            {
-                if (rem>9)
-                {
-                    int finalchar=rem-9;
-                    *p=r[finalchar-1];
-                    p++;
-                    hex_ret(quotient);
-                }       
-                else
-                {
-                    *p=rem;
-                    p++;
-                    hex_ret(quotient);
-                }       
-            } 
-            else
-            {
-                if (quotient>9 && quotient<=15)
-                {
-                    *p=rem;
-                    p++;
-                    int finalchar=quotient-9;
-                    *p=r[finalchar-1];
-                    *p++='/0';
-                }
-                else
-                {
-                    *p=rem;
-                    p++;
-                    *p=qoutient;
-                    *p++='/0';
-                }
-
-            }
-        } 
-        else
-        {
-            int finalchar=quotient-9;
-            *p=r[finalchar-1];
-        }       
+    int len=0,k=0;
+    do//for every 4 bits
+    {
+        //get the equivalent hex digit
+        buff[len] = hex[num&amp;0xF];
+        len++;
+        num>>=4;
+    }while(num!=0);
+    //since we get the digits in the wrong order reverse the digits in the buffer
+    for(;k<len/2;k++)
+    {//xor swapping
+        buff[k]^=buff[len-k-1];
+        buff[len-k-1]^=buff[k];
+        buff[k]^=buff[len-k-1];
+    }
+    //null terminate the buffer and return the length in digits
+    buff[len]='\0';
+    return len;
 }
 /* get functions */
 uint32_t getesp( void )
@@ -200,15 +173,19 @@ static void putpixel(int x,int y, int color) {
 int main(void) 
 {
 	initialize();
-	const char * a;
+	char buff[16];
 	//debug
 	writestring("ss: ");
-	writestring((const char *) hex_ret((int) getss()));
+	uintToHexStr((unsigned int) getss(),buff);
+	writestring((const char*) buff);
 	writestring(" esp: ");
-	writestring((const char *) hex_ret((int) getesp()));
+	uintToHexStr((unsigned int) getesp(),buff);
+	writestring((const char*) buff);
 	writestring(" cs: ");
-	writestring( (const char *) hex_ret((int) getcs()));
+	uintToHexStr((unsigned int) getcs(),buff);
+	writestring((const char*) buff);
 	writestring(" eip: ");
-	writestring( (const char *) hex_ret((int) geteip()));
+	uintToHexStr((unsigned int) geteip(),buff);
+	writestring((const char*) buff);
 	return 1;
 }
