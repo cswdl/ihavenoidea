@@ -31,12 +31,37 @@ static inline uint16_t vga_entry(unsigned char uc, uint8_t color)
 	return (uint16_t) uc | (uint16_t) color << 8;
 }
  
+void *memcpy(void *dst, void const *src, int n)
+{
+    char * ret = dst;
+    char * p = dst;
+    const char * q = src;
+    while (n--)
+        *p++ = *q++;
+    return ret;
+}
 size_t strlen(const char* str) 
 {
 	size_t len = 0;
 	while (str[len])
 		len++;
 	return len;
+}
+int strcpy(char *dst,const char *src)
+{
+    int i = 0;
+    while ((*dst++ = *src++) != 0)
+        i++;
+    return i;
+}
+
+
+void strcat(void *dest,const void *src)
+{
+    char * end = (char*)dest + strlen(dest);
+    memcpy((char*)end,(char*)src,strlen((char*)src));
+    end = end + strlen((char*)src);
+    *end = '\0';
 }
  
 static const size_t VGA_WIDTH = 80;
