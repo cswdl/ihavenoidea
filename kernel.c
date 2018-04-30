@@ -134,5 +134,6 @@ void setpixel(int x, int y, unsigned char color) {
 void main(void) 
 {
 	switchTo13h();
+	initialize13h();
 	setpixel(10, 10, (unsigned char) 10);
 }
