@@ -132,6 +132,7 @@ void switchTo13h(){
       11H graphic  640x480  8x16  2             VGA      a000  Anlg
       12H graphic  640x480  8x16  16            VGA      a000  Anlg
       13H graphic  640x480  8x16  256           VGA      a000  Anlg
+      check:http://webpages.charter.net/danrollins/techhelp/0113.HTM
 	*/
 	asm volatile(
 	"mov $00, %ah\n\t" //Int 10/AH=00h = SET VIDEO MODE, setting ah to 00
