@@ -126,7 +126,7 @@ void setpixel(int x, int y, unsigned char color) {
 
 int main(void) 
 {
-	init_graph_vga(320,200,1);
+	init_graph_vga(500,600,1);
 	setpixel(10, 10, (unsigned char) 10);
 	return 1;
 }
