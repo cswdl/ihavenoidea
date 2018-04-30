@@ -98,7 +98,20 @@ void writestring(const char* data)
 {
 	write(data, strlen(data));
 }
-
+void initialize13h(void) 
+{
+	row = 0;
+	column = 0;
+	color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
+	buffer = (uint16_t*) 0xA0000;
+	for (size_t y = 0; y < VGA_HEIGHT; y++) {
+		for (size_t x = 0; x < VGA_WIDTH; x++) {
+			const size_t index = y * VGA_WIDTH + x;
+			buffer[index] = vga_entry(' ', color);
+		}
+	}
+}
+ 
 void switchTo13h(){
 	asm volatile(
 	"mov $0, %ah\n\t"
@@ -108,7 +121,7 @@ void switchTo13h(){
 	);
 }
 void setpixel(int x, int y, unsigned char color) {
-	unsigned char* VGA = (unsigned char*) 0xB8000;
+	unsigned char* VGA = (unsigned char*) 0xA0000;
 	int offset;
 	if(0 <= x && x < 320) {
 		if(0 <= y && y < 200) {
@@ -120,8 +133,6 @@ void setpixel(int x, int y, unsigned char color) {
 
 void main(void) 
 {
-	initialize();
-	writestring("hi");
 	switchTo13h();
 	setpixel(10, 10, (unsigned char) 10);
 }
