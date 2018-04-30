@@ -3,7 +3,7 @@
 int13:
         cli
         movl    %cr0,%eax
-        andb    $not %1,%al
+        andb    $not 1,%al
         movl    %eax,%cr0
         sti
         movb    $0,%ah
