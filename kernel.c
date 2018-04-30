@@ -49,8 +49,34 @@ uint8_t color;
  
 /* Note the use of the volatile keyword to prevent the compiler from eliminating dead stores. */
 volatile uint16_t* buffer;
- extern void entering_v86(uint32_t ss, uint32_t esp, uint32_t cs, uint32_t eip);
+extern void entering_v86(uint32_t ss, uint32_t esp, uint32_t cs, uint32_t eip);
 
+/* get functions */
+uint32_t getesp( void )
+{
+    uint32_t l;
+    asm( "mov %%esp, %0" : "=rm" ( l ));
+    return l;
+}
+uint32_t geteip( void )
+{
+    uint32_t l;
+    asm( "mov %%eip, %0" : "=rm" ( l ));
+    return l;
+}
+uint32_t getes( void )
+{
+    uint32_t l;
+    asm( "mov %%es, %0" : "=rm" ( l ));
+    return l;
+}
+uint32_t getss( void )
+{
+    uint32_t l;
+    asm( "mov %%ss, %0" : "=rm" ( l ));
+    return l;
+}
+/* sorry for this terrible copy-pasted code ? */
 void initialize(void) 
 {
 	row = 0;
@@ -125,6 +151,6 @@ static void putpixel(int x,int y, int color) {
 
 int main(void) 
 {
-	init_graph_vga(320,200,1);
+	entering_v86(getss(), getesp(), getcs(), geteip()); //bad
 	return 1;
 }
