@@ -3,7 +3,9 @@
 int13:
         cli
         movl    %cr0,%eax
-        andb    $not 1,%al
+        .intel_syntax
+        and     al,not 1
+        .att_syntax
         movl    %eax,%cr0
         sti
         movb    $0,%ah
