@@ -55,7 +55,7 @@ uint32_t getesp( void )
 {
     uint32_t l;
     void* p = NULL;
-    l = (uint32_t)&p
+    l = (uint32_t)&p;
     return l;
 }
 uint32_t geteip( void )
