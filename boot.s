@@ -22,12 +22,13 @@ stack_top:
 .global _start
 .type _start, @function
 _start:
-	mov $stack_top, %esp
-	xor %ax, %ax
-	mov %ax, $ds
-	mov %ax, $es
-	mov %ax, $fs
-	mov %ax,  $gs
+	xor %ax,%ax
+	mov $ds, %ax
+	mov $es, %ax
+	mov $fs, %ax
+	mov $gs, %ax
+
+
 		/*
 	     AL  Type     Format   Cell  Colors        Adapter  Addr  Monitor
       0  text     40x25     8x8* 16/8 (shades) CGA,EGA  b800  Composite
