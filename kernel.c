@@ -50,6 +50,38 @@ size_t strlen(const char* str)
   		len++;
   	return len;
   }
+//*************************************************************
+// void prntnum(unsigned long n, int base, char sign, char *outbuf)
+// unsigned long num = number to be printed
+// int base        = number base for conversion;  decimal=10,hex=16
+// char sign       = signed or unsigned output
+// char *outbuf   = buffer to hold the output number
+//*************************************************************
+
+void prntnum(unsigned long n, int base, char sign, char *outbuf)
+{
+
+    int i = 12;
+    int j = 0;
+
+    do{
+        outbuf[i] = "0123456789ABCDEF"[num % base];
+        i--;
+        n = num/base;
+    }while( num > 0);
+
+    if(sign != ' '){
+        outbuf[0] = sign;
+        ++j;
+    }
+
+    while( ++i < 13){
+       outbuf[j++] = outbuf[i];
+    }
+
+    outbuf[j] = 0;
+
+}
 /* get functions */
 uint32_t getesp( void )
 {
@@ -150,13 +182,17 @@ int main(void)
 	const char * a;
 	//debug
 	writestring("ss: ");
-	writestring((const char *) getss());
+	char * l;
+	prntnum( (unsigned long) getss(), 16, ' ', l)
+	writestring(l);
 	writestring(" esp: ");
-	writestring((const char *) getesp());
+	prntnum( (unsigned long) getesp(), 16, ' ', l)
+	writestring(l);
 	writestring(" cs: ");
-	writestring((const char *) getcs());
+	prntnum( (unsigned long) getcs(), 16, ' ', l) 
+	writestring(l);
 	writestring(" eip: ");
-	writestring((const char *) geteip());
-	entering_v86(getss(), getesp(), getcs(), geteip()); //bad
+	prntnum( (unsigned long) geteip(), 16, ' ', l)
+	writestring(l);
 	return 1;
 }
