@@ -122,5 +122,4 @@ void main(void)
 {
 	initialize();
 	writestring("hi");
-	setpixel(10,10,(unsigned char) 10); //blyat
 }
