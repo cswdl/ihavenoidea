@@ -69,6 +69,12 @@ uint32_t getes( void )
     asm( "mov %%es, %0" : "=rm" ( l ));
     return l;
 }
+uint32_t getcs( void )
+{
+    uint32_t l;
+    asm( "mov %%cs, %0" : "=rm" ( l ));
+    return l;
+}
 uint32_t getss( void )
 {
     uint32_t l;
