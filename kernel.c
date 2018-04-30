@@ -124,6 +124,5 @@ static void putpixel(int x,int y, int color) {
 int main(void) 
 {
 	init_graph_vga(320,200,1);
-	putpixel(10, 10, (unsigned char) 10);
 	return 1;
 }
