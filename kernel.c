@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include "video.h"
 enum vga_color {
 	VGA_COLOR_BLACK = 0,
 	VGA_COLOR_BLUE = 1,
@@ -123,7 +124,9 @@ void setpixel(int x, int y, unsigned char color) {
   	}
 }
 
-void main(void) 
+int main(void) 
 {
+	init_graph_vga(400, 600);
 	setpixel(10, 10, (unsigned char) 10);
+	return 1;
 }
