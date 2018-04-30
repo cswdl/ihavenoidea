@@ -61,7 +61,7 @@ int uintToHexStr(unsigned int num,char* buff)
     do//for every 4 bits
     {
         //get the equivalent hex digit
-        buff[len] = hex[num&amp;0xF];
+        buff[len] = hex[num&0xF];
         len++;
         num>>=4;
     }while(num!=0);
