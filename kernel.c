@@ -108,7 +108,7 @@ void switchTo13h(){
 	);
 }
 void setpixel(int x, int y, unsigned char color) {
-	unsigned char* VGA = (unsigned char*) 0xB0000;
+	unsigned char* VGA = (unsigned char*) 0xB8000;
 	int offset;
 	if(0 <= x && x < 320) {
 		if(0 <= y && y < 200) {
