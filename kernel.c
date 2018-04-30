@@ -183,16 +183,16 @@ int main(void)
 	//debug
 	writestring("ss: ");
 	char * l;
-	prntnum( (unsigned long) getss(), 16, ' ', l)
+	prntnum( (unsigned long) getss(), 16, ' ', l);
 	writestring(l);
 	writestring(" esp: ");
-	prntnum( (unsigned long) getesp(), 16, ' ', l)
+	prntnum( (unsigned long) getesp(), 16, ' ', l);
 	writestring(l);
 	writestring(" cs: ");
-	prntnum( (unsigned long) getcs(), 16, ' ', l) 
+	prntnum( (unsigned long) getcs(), 16, ' ', l);
 	writestring(l);
 	writestring(" eip: ");
-	prntnum( (unsigned long) geteip(), 16, ' ', l)
+	prntnum( (unsigned long) geteip(), 16, ' ', l);
 	writestring(l);
 	return 1;
 }
