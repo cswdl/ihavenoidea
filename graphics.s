@@ -1,14 +1,12 @@
 .global int13
-
+.intel_syntax noprefix
 int13:
         cli
-        movl    %cr0,%eax
-        .intel_syntax
+        mov     eax,cr0
         and     al,not 1
-        .att_syntax
-        movl    %eax,%cr0
+        mov     cr0,eax
         sti
-        movb    $0,%ah
-        movb    $0x13,%al
-        int     $0x10
+        mov ah, 0
+        mov al, 0x13
+        int 0x10
         ret
