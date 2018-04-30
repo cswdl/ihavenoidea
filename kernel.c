@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "video.h"
+
 enum vga_color {
 	VGA_COLOR_BLACK = 0,
 	VGA_COLOR_BLUE = 1,
@@ -48,7 +49,8 @@ uint8_t color;
  
 /* Note the use of the volatile keyword to prevent the compiler from eliminating dead stores. */
 volatile uint16_t* buffer;
- 
+ extern void entering_v86(uint32_t ss, uint32_t esp, uint32_t cs, uint32_t eip);
+
 void initialize(void) 
 {
 	row = 0;
