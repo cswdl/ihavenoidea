@@ -1,7 +1,3 @@
-/* Declare constants for the multiboot header. */
-[bits 16]
-
-
 
 .section .bss
 .align 16
