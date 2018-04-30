@@ -2,12 +2,11 @@
 
 int13:
         cli
-        mov     eax,cr0
-        and     al,not %1
-        mov     cr0,eax
+        movl    %cr0,%eax
+        andb    $not %1,%al
+        movl    %eax,%cr0
         sti
-        mov ah, 0
-        mov al, 0x13
-        int 0x10
-        ret
-        
+        movb    $0,%ah
+        movb    $0x13,%al
+        int     $0x10
+        re
