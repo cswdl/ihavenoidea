@@ -54,31 +54,31 @@ extern void entering_v86(uint32_t ss, uint32_t esp, uint32_t cs, uint32_t eip);
 uint32_t getesp( void )
 {
     uint32_t l;
-    asm ("movl $0, %%esp\n" :"=r"(l));
+    asm("movl %%esp, %0" : "=r"(l) :);
     return l;
 }
 uint32_t geteip( void )
 {
     uint32_t l;
-    asm ("movl $0, %%eip\n" :"=r"(l));
+    asm("movl %%eip, %0" : "=r"(l) :);
     return l;
 }
 uint32_t getes( void )
 {
     uint32_t l;
-    asm ("movl $0, %%es\n" :"=r"(l));
+    asm("movl %%es, %0" : "=r"(l) :);
     return l;
 }
 uint32_t getss( void )
 {
     uint32_t l;
-    asm ("movl $0, %%ss\n" :"=r"(l));
+    asm("movl %%ss, %0" : "=r"(l) :);
     return l;
 }
 uint32_t getcs( void )
 {
     uint32_t l;
-    asm ("movl $0, %%cs\n" :"=r"(l));
+    asm("movl %%cs, %0" : "=r"(l) :);
     return l;
 }
 
