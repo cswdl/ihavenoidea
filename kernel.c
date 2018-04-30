@@ -51,36 +51,11 @@ volatile uint16_t* buffer;
 extern void entering_v86(uint32_t ss, uint32_t esp, uint32_t cs, uint32_t eip);
 
 /* get functions */
-uint32_t getesp( void )
-{
-    uint32_t l;
-    asm( "mov %%esp, %0" : "=rm" ( l ));
-    return l;
-}
-uint32_t geteip( void )
-{
-    uint32_t l;
-    asm( "mov %%eip, %0" : "=rm" ( l ));
-    return l;
-}
-uint32_t getes( void )
-{
-    uint32_t l;
-    asm( "mov %%es, %0" : "=rm" ( l ));
-    return l;
-}
-uint32_t getcs( void )
-{
-    uint32_t l;
-    asm( "mov %%cs, %0" : "=rm" ( l ));
-    return l;
-}
-uint32_t getss( void )
-{
-    uint32_t l;
-    asm( "mov %%ss, %0" : "=rm" ( l ));
-    return l;
-}
+register uint32_t esp asm("esp");
+register uint32_t eip asm("eip");
+register uint32_t es asm("es");
+register uint32_t cs asm("cs");
+register uint32_t ss asm("ss");
 /* sorry for this terrible copy-pasted code ? */
 void initialize(void) 
 {
@@ -156,6 +131,6 @@ static void putpixel(int x,int y, int color) {
 
 int main(void) 
 {
-	entering_v86(getss(), getesp(), getcs(), geteip()); //bad
+	entering_v86(ss, esp, cs, eip); //bad
 	return 1;
 }
