@@ -36,15 +36,12 @@ void outb(unsigned short port, unsigned char value)
 {
 asm volatile ("outb %%al,%%dx": :"dN"(port), "a"(value));
 }
-void unsigned char inb(unsigned short port)
+inline unsigned char inb(unsigned short port)
 {
-    unsigned char ret;
-    asm volatile ( "inb %1, %0"
-                   : "=a"(ret)
-                   : "Nd"(port) );
-    return ret;
+  unsigned char ret;
+  asm volatile ("in %1,%0":"=a"(ret):"Nd"(port));
+  return ret;
 }
-
 static const byte hor_regs [] = { 0x0,  0x1,  0x2,  0x3,  0x4, 
 0x5,  0x13 };
 
