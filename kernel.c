@@ -61,7 +61,7 @@ uint32_t getesp( void )
 uint32_t geteip( void )
 {
     uint32_t l;
-    asm("movl %%eip, %0" : "=r"(l) :);
+    l = (uint32_t) __builtin_return_address(0);
     return l;
 }
 uint32_t getes( void )
