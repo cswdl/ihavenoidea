@@ -36,7 +36,7 @@ void outb(unsigned short port, unsigned char value)
 {
 asm volatile ("outb %%al,%%dx": :"dN"(port), "a"(value));
 }
-void uint8_t inb(unsigned short port)
+void unsigned char inb(unsigned short port)
 {
     unsigned char ret;
     asm volatile ( "inb %1, %0"
