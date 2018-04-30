@@ -50,37 +50,58 @@ size_t strlen(const char* str)
   		len++;
   	return len;
   }
-//*************************************************************
-// void prntnum(unsigned long n, int base, char sign, char *outbuf)
-// unsigned long num = number to be printed
-// int base        = number base for conversion;  decimal=10,hex=16
-// char sign       = signed or unsigned output
-// char *outbuf   = buffer to hold the output number
-//*************************************************************
-
-void prntnum(unsigned long n, int base, char sign, char *outbuf)
+char hex_ret(int X)
 {
+    int quotient;
+    int rem;
+    char i[16]; void *p=i;
+    char r[]={'A','B','C','D','E','F','/0'};
 
-    int i = 12;
-    int j = 0;
+        if (X>=16)
+        {
+            quotient=X/16;
+            rem=X%16;
+            if (quotient>=16)
+            {
+                if (rem>9)
+                {
+                    int finalchar=rem-9;
+                    *p=r[finalchar-1];
+                    p++;
+                    hex_ret(quotient);
+                }       
+                else
+                {
+                    *p=rem;
+                    p++;
+                    hex_ret(quotient);
+                }       
+            } 
+            else
+            {
+                if (quotient>9 && quotient<=15)
+                {
+                    *p=rem;
+                    p++;
+                    int finalchar=quotient-9;
+                    *p=r[finalchar-1];
+                    *p++='/0';
+                }
+                else
+                {
+                    *p=rem;
+                    p++;
+                    *p=qoutient;
+                    *p++='/0';
+                }
 
-    do{
-        outbuf[i] = "0123456789ABCDEF"[num % base];
-        i--;
-        n = num/base;
-    }while( num > 0);
-
-    if(sign != ' '){
-        outbuf[0] = sign;
-        ++j;
-    }
-
-    while( ++i < 13){
-       outbuf[j++] = outbuf[i];
-    }
-
-    outbuf[j] = 0;
-
+            }
+        } 
+        else
+        {
+            int finalchar=quotient-9;
+            *p=r[finalchar-1];
+        }       
 }
 /* get functions */
 uint32_t getesp( void )
@@ -182,17 +203,12 @@ int main(void)
 	const char * a;
 	//debug
 	writestring("ss: ");
-	char * l;
-	prntnum( (unsigned long) getss(), 16, ' ', l);
-	writestring(l);
+	writestring((const char *) hex_ret((int) getss()));
 	writestring(" esp: ");
-	prntnum( (unsigned long) getesp(), 16, ' ', l);
-	writestring(l);
+	writestring((const char *) hex_ret((int) getesp()));
 	writestring(" cs: ");
-	prntnum( (unsigned long) getcs(), 16, ' ', l);
-	writestring(l);
+	writestring( (const char *) hex_ret((int) getcs()));
 	writestring(" eip: ");
-	prntnum( (unsigned long) geteip(), 16, ' ', l);
-	writestring(l);
+	writestring( (const char *) hex_ret((int) geteip()));
 	return 1;
 }
