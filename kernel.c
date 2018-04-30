@@ -42,7 +42,7 @@ uint8_t color;
  
 /* Note the use of the volatile keyword to prevent the compiler from eliminating dead stores. */
 volatile uint16_t* buffer;
-extern void int13();
+extern void startUnrealMode();
 size_t strlen(const char* str) 
   {
   	size_t len = 0;
@@ -187,6 +187,6 @@ int main(void)
 	writestring(" eip: ");
 	uintToHexStr((unsigned int) geteip(),buff);
 	writestring((const char*) buff);
-	int13();
+	startUnrealMode();
 	return 1;
 }
