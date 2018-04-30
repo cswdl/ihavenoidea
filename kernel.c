@@ -187,5 +187,6 @@ int main(void)
 	writestring(" eip: ");
 	uintToHexStr((unsigned int) geteip(),buff);
 	writestring((const char*) buff);
+	int13();
 	return 1;
 }
