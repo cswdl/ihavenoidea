@@ -1,7 +1,6 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-#include "video.h"
 
 enum vga_color {
 	VGA_COLOR_BLACK = 0,
