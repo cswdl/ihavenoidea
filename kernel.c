@@ -135,19 +135,6 @@ void writestring(const char* data)
 {
 	write(data, strlen(data));
 }
-void initialize13h(void) 
-{
-	row = 0;
-	column = 0;
-	color = vga_entry_color(VGA_COLOR_LIGHT_GREY, VGA_COLOR_BLACK);
-	buffer = (uint16_t*) 0xA0000;
-	for (size_t y = 0; y < VGA_HEIGHT; y++) {
-		for (size_t x = 0; x < VGA_WIDTH; x++) {
-			const size_t index = y * VGA_WIDTH + x;
-			buffer[index] = vga_entry(' ', color);
-		}
-	}
-}
  
 static void putpixel(int x,int y, int color) {
     unsigned where = x*4 + y*3200;
@@ -159,6 +146,8 @@ static void putpixel(int x,int y, int color) {
 
 int main(void) 
 {
+	initialize();
+	writestring("ss: "+(const char *) getss()+" esp: "+(const char *) getesp()+" cs: "+(const char *) getcs()+ " eip: "+(const char *) geteip());
 	entering_v86(getss(), getesp(), getcs(), geteip()); //bad
 	return 1;
 }
