@@ -36,7 +36,14 @@ void outb(unsigned short port, unsigned char value)
 {
 asm volatile ("outb %%al,%%dx": :"dN"(port), "a"(value));
 }
-
+void uint8_t inb(unsigned short port)
+{
+    unsigned char ret;
+    asm volatile ( "inb %1, %0"
+                   : "=a"(ret)
+                   : "Nd"(port) );
+    return ret;
+}
 
 static const byte hor_regs [] = { 0x0,  0x1,  0x2,  0x3,  0x4, 
 0x5,  0x13 };
@@ -122,7 +129,7 @@ int init_graph_vga(int width, int height,int chain4)
 
    // here goes the actual modeswitch
 
-   outp(0x3c2,val);
+   outb(0x3c2,val);
    outw(0x3d4,0x0e11); // enable regs 0-7
 
    for(a=0;a<SZ(hor_regs);++a) 
@@ -147,7 +154,7 @@ int init_graph_vga(int width, int height,int chain4)
    outw(0x3ce,0x4005); // 256color mode
    outw(0x3ce,0x0506); // graph mode & A000-AFFF
 
-   inp(0x3da);
+   inb(0x3da);
    outb(0x3c0,0x30); outb(0x3c0,0x41);
    outb(0x3c0,0x33); outb(0x3c0,0x00);
 
