@@ -122,5 +122,6 @@ void main(void)
 {
 	initialize();
 	writestring("hi");
+	switchTo13h();
 	setpixel(10, 10, (unsigned char) 10);
 }
