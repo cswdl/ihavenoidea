@@ -113,20 +113,17 @@ void initialize13h(void)
 	}
 }
  
-void setpixel(int x, int y, unsigned char color) {
-	unsigned char* VGA = (unsigned char*) 0xA0000;
-	int offset;
-	if(0 <= x && x < 320) {
-		if(0 <= y && y < 200) {
-			offset = 320*y + x;
-			VGA[offset] = color;
-   		}
-  	}
+static void putpixel(int x,int y, int color) {
+    unsigned where = x*4 + y*3200;
+    screen = (unsigned char*) 0xA0000;
+    screen[where] = color & 255;              // BLUE
+    screen[where + 1] = (color >> 8) & 255;   // GREEN
+    screen[where + 2] = (color >> 16) & 255;  // RED
 }
 
 int main(void) 
 {
-	init_graph_vga(500,600,1);
-	setpixel(10, 10, (unsigned char) 10);
+	init_graph_vga(320,200,1);
+	putpixel(10, 10, (unsigned char) 10);
 	return 1;
 }
