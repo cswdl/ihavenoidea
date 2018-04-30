@@ -29,8 +29,7 @@ typedef unsigned long dword;
 
 void outw(unsigned short port, unsigned short value);
 void outb(unsigned short port, unsigned char value);
-void uint8_t inb(unsigned short port);
-
+inline unsigned char inb(unsigned short port);
 static const byte hor_regs[];
 static const byte width_256[];
 static const byte width_320[];
