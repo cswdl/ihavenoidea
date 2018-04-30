@@ -115,7 +115,7 @@ void initialize13h(void)
  
 static void putpixel(int x,int y, int color) {
     unsigned where = x*4 + y*3200;
-    screen = (unsigned char*) 0xA0000;
+    unsigned char* screen = (unsigned char*) 0xA0000;
     screen[where] = color & 255;              // BLUE
     screen[where + 1] = (color >> 8) & 255;   // GREEN
     screen[where + 2] = (color >> 16) & 255;  // RED
