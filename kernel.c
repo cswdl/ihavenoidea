@@ -147,7 +147,16 @@ static void putpixel(int x,int y, int color) {
 int main(void) 
 {
 	initialize();
-	writestring("ss: "+ getss() +" esp: "+ getesp() +" cs: "+ getcs() + " eip: "+geteip());
+	const char * a;
+	//debug
+	strcpy(a, "ss: ");
+	strcat(a, (const char *) getss());
+	strcat(a, " esp: ");
+	strcat(a, (const char *) getesp());
+	strcat(a, " cs: ");
+	strcat(a, (const char *) getcs());
+	strcat(a, " eip: ");
+	strcat(a, (const char *) geteip());
 	entering_v86(getss(), getesp(), getcs(), geteip()); //bad
 	return 1;
 }
