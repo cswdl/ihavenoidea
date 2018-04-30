@@ -1,3 +1,24 @@
+
+void outpw(unsigned short port, unsigned short value)
+{
+asm volatile ("outw %%ax,%%dx": :"dN"(port), "a"(value));
+} 
+
+void outp(unsigned short port, unsigned char value)
+{
+asm volatile ("outb %%al,%%dx": :"dN"(port), "a"(value));
+}
+inline unsigned char inp(unsigned short port)
+{
+  unsigned char ret;
+  asm volatile ("in %1,%0":"=a"(ret):"Nd"(port));
+  return ret;
+}
+//
+// vga mode switcher by Jonas Berlin -98 <jberlin@cc.hut.fi>
+//
+
+
 typedef char byte;
 typedef unsigned short word;
 typedef unsigned long dword;
@@ -27,21 +48,7 @@ typedef unsigned long dword;
 #define R_H564 0x80
 #define R_H600 0x80
 
-void outw(unsigned short port, unsigned short value)
-{
-asm volatile ("outw %%ax,%%dx": :"dN"(port), "a"(value));
-} 
 
-void outb(unsigned short port, unsigned char value)
-{
-asm volatile ("outb %%al,%%dx": :"dN"(port), "a"(value));
-}
-inline unsigned char inb(unsigned short port)
-{
-  unsigned char ret;
-  asm volatile ("in %1,%0":"=a"(ret):"Nd"(port));
-  return ret;
-}
 static const byte hor_regs [] = { 0x0,  0x1,  0x2,  0x3,  0x4, 
 0x5,  0x13 };
 
@@ -82,8 +89,8 @@ static const byte height_564[] = { 0x62, 0xf0, 0x60, 0x37, 0x89,
 static const byte height_600[] = { 0x70, 0xf0, 0x60, 0x5b, 0x8c,
 0x57, 0x58, 0x70 };
 
-// the chain4 parameter should be 1 for normal 13h-type mode, but 
-//only allows 320x200 256x200, 256x240 and 256x256 because you
+// the chain4 parameter should be 1 for normal 13h-type mode, but //
+only allows 320x200 256x200, 256x240 and 256x256 because you
 // can only access the first 64kb
 
 // if chain4 is 0, then plane mode is used (tweaked modes), and
@@ -126,42 +133,41 @@ int init_graph_vga(int width, int height,int chain4)
 
    // here goes the actual modeswitch
 
-   outb(0x3c2,val);
-   outw(0x3d4,0x0e11); // enable regs 0-7
+   outp(0x3c2,val);
+   outpw(0x3d4,0x0e11); // enable regs 0-7
 
    for(a=0;a<SZ(hor_regs);++a) 
-      outw(0x3d4,(word)((w[a]<<8)+hor_regs[a]));
+      outpw(0x3d4,(word)((w[a]<<8)+hor_regs[a]));
    for(a=0;a<SZ(ver_regs);++a)
-      outw(0x3d4,(word)((h[a]<<8)+ver_regs[a]));
+      outpw(0x3d4,(word)((h[a]<<8)+ver_regs[a]));
 
-   outw(0x3d4,0x0008); // vert.panning = 0
+   outpw(0x3d4,0x0008); // vert.panning = 0
 
    if(chain4) {
-      outw(0x3d4,0x4014);
-      outw(0x3d4,0xa317);
-      outw(0x3c4,0x0e04);
+      outpw(0x3d4,0x4014);
+      outpw(0x3d4,0xa317);
+      outpw(0x3c4,0x0e04);
    } else {
-      outw(0x3d4,0x0014);
-      outw(0x3d4,0xe317);
-      outw(0x3c4,0x0604);
+      outpw(0x3d4,0x0014);
+      outpw(0x3d4,0xe317);
+      outpw(0x3c4,0x0604);
    }
 
-   outw(0x3c4,0x0101);
-   outw(0x3c4,0x0f02); // enable writing to all planes
-   outw(0x3ce,0x4005); // 256color mode
-   outw(0x3ce,0x0506); // graph mode & A000-AFFF
+   outpw(0x3c4,0x0101);
+   outpw(0x3c4,0x0f02); // enable writing to all planes
+   outpw(0x3ce,0x4005); // 256color mode
+   outpw(0x3ce,0x0506); // graph mode & A000-AFFF
 
-   inb(0x3da);
-   outb(0x3c0,0x30); outb(0x3c0,0x41);
-   outb(0x3c0,0x33); outb(0x3c0,0x00);
+   inp(0x3da);
+   outp(0x3c0,0x30); outp(0x3c0,0x41);
+   outp(0x3c0,0x33); outp(0x3c0,0x00);
 
    for(a=0;a<16;a++) {    // ega pal
-      outb(0x3c0,(byte)a); 
-      outb(0x3c0,(byte)a); 
+      outp(0x3c0,(byte)a); 
+      outp(0x3c0,(byte)a); 
    } 
    
-   outb(0x3c0, 0x20); // enable video
+   outp(0x3c0, 0x20); // enable video
 
    return 1;
-
 }
