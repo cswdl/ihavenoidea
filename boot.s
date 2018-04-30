@@ -23,6 +23,11 @@ stack_top:
 .type _start, @function
 _start:
 	mov $stack_top, %esp
+	xor %ax, %ax
+	mov %ax, $ds
+	mov %ax, $es
+	mov %ax, $fs
+	mov %ax,  $gs
 		/*
 	     AL  Type     Format   Cell  Colors        Adapter  Addr  Monitor
       0  text     40x25     8x8* 16/8 (shades) CGA,EGA  b800  Composite
@@ -48,7 +53,6 @@ _start:
 	mov $00, %ah //Int 10/AH=00h = SET VIDEO MODE, setting ah to 00
 	mov $0x13, %al //Int 10/AL=13 = DESIRED VIDEO MDOE, setting to 13h for 2 5 6 colors
 	int $0x10 //finally, call int 10
-	ret // return from procedure
 	call main
 	cli
 1:	hlt
