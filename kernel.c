@@ -60,7 +60,7 @@ uint32_t getesp( void )
 uint32_t geteip( void )
 {
     uint32_t l;
-    asm ("movl %%eip, %0\n" :"=r"(l));
+    asm ("movl %eip, %0\n" :"=r"(l));
     return l;
 }
 uint32_t getes( void )
@@ -73,6 +73,12 @@ uint32_t getss( void )
 {
     uint32_t l;
     asm ("movl %%ss, %0\n" :"=r"(l));
+    return l;
+}
+uint32_t getcs( void )
+{
+    uint32_t l;
+    asm ("movl %%cs, %0\n" :"=r"(l));
     return l;
 }
 
