@@ -54,7 +54,7 @@ extern void entering_v86(uint32_t ss, uint32_t esp, uint32_t cs, uint32_t eip);
 uint32_t getesp( void )
 {
     uint32_t l;
-    asm("movl %%esp, %0" : "=r"(l) :);
+    asm("popl %k1" : "=r"(l) :);
     return l;
 }
 uint32_t geteip( void )
